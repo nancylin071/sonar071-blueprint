@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>公司核心價值鏈與客戶部智慧自動化藍圖</title>
+  <style>
+    :root {
+      --ink: #18212f;
+      --muted: #5d6878;
+      --line: #d9dee7;
+      --soft: #f6f8fb;
+      --white: #ffffff;
+      --blue: #2563eb;
+      --green: #11875d;
+      --amber: #b7791f;
+      --red: #c2410c;
+      --teal: #0f766e;
+      --violet: #6d5bd0;
+      --shadow: 0 10px 30px rgba(24, 33, 47, .08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      color: var(--ink);
+      background: #eef2f7;
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 34px 24px 64px;
+    }
+
+    header {
+      background: var(--white);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding: 32px;
+      margin-bottom: 18px;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1.18;
+      letter-spacing: 0;
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      font-size: 26px;
+      margin-bottom: 14px;
+      border-left: 5px solid var(--blue);
+      padding-left: 12px;
+    }
+
+    h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 920px;
+      margin-bottom: 0;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 6px 12px;
+      border: 1px solid var(--line);
+      background: var(--soft);
+      color: #334155;
+      font-size: 14px;
+    }
+
+    section {
+      background: var(--white);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding: 28px;
+      margin-top: 18px;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 12px 0 22px;
+    }
+
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .company-flow {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(150px, 1fr));
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+
+    .flow-card {
+      position: relative;
+      min-height: 168px;
+      border: 1px solid var(--line);
+      background: #fbfcff;
+      padding: 16px;
+    }
+
+    .flow-card:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      right: -14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      background: var(--white);
+      border: 1px solid var(--line);
+      color: var(--blue);
+      font-weight: 700;
+      z-index: 1;
+    }
+
+    .tag {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--white);
+      padding: 4px 8px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    .tag.marketing { background: var(--teal); }
+    .tag.sales { background: var(--blue); }
+    .tag.pm { background: var(--violet); }
+    .tag.exe { background: var(--green); }
+    .tag.report { background: var(--amber); }
+
+    .flow-card ul, .compact-list {
+      margin: 8px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .info-card {
+      border: 1px solid var(--line);
+      background: #fbfcff;
+      padding: 18px;
+      min-height: 100%;
+    }
+
+    .info-card strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .info-card p {
+      color: var(--muted);
+      margin-bottom: 0;
+      font-size: 14px;
+    }
+
+    .handoff-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .handoff {
+      border: 1px solid var(--line);
+      border-top: 4px solid var(--blue);
+      padding: 16px;
+      background: #fbfcff;
+    }
+
+    .handoff .route {
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--blue);
+    }
+
+    .customer-lanes {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .lane {
+      border: 1px solid var(--line);
+      background: #fbfcff;
+      padding: 18px;
+    }
+
+    .steps {
+      display: grid;
+      gap: 10px;
+      counter-reset: step;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 10px;
+      align-items: start;
+      border: 1px solid var(--line);
+      background: var(--white);
+      padding: 12px;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      background: var(--blue);
+      color: var(--white);
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .step p {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      background: var(--white);
+    }
+
+    th {
+      text-align: left;
+      background: #eaf0f8;
+      color: #1f2a3a;
+      font-weight: 800;
+      border: 1px solid var(--line);
+      padding: 10px;
+      vertical-align: top;
+    }
+
+    td {
+      border: 1px solid var(--line);
+      padding: 10px;
+      vertical-align: top;
+      color: #334155;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+
+    .table-wrap table {
+      border: 0;
+      min-width: 980px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 12px;
+    }
+
+    .timeline-row {
+      display: grid;
+      grid-template-columns: 180px 1fr 220px;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .timeline-row > div {
+      border: 1px solid var(--line);
+      background: #fbfcff;
+      padding: 14px;
+    }
+
+    .timeline-row .stage {
+      background: #f0f7ff;
+      font-weight: 800;
+      color: var(--blue);
+    }
+
+    .callout {
+      border-left: 5px solid var(--green);
+      background: #f0fbf7;
+      padding: 16px 18px;
+      margin-top: 16px;
+      color: #234136;
+    }
+
+    @media (max-width: 980px) {
+      .company-flow { grid-template-columns: repeat(7, 180px); }
+      .grid-2, .grid-3, .customer-lanes, .handoff-grid { grid-template-columns: 1fr; }
+      .timeline-row { grid-template-columns: 1fr; }
+      .flow-card:not(:last-child)::after { display: none; }
+      header, section { padding: 22px; }
+    }
+
+    @media print {
+      body { background: var(--white); }
+      .page { max-width: none; padding: 0; }
+      header, section { box-shadow: none; break-inside: avoid; }
+      .company-flow { grid-template-columns: repeat(7, 1fr); overflow: visible; }
+      .table-wrap { overflow: visible; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <h1>公司核心價值鏈與客戶部智慧自動化藍圖</h1>
+      <p class="subtitle">以整間公司的端到端價值鏈為背景，先看跨部門工作流，再聚焦客戶部如何把提案、成交、行政交接串成可導入智慧自動化的流程。</p>
+      <div class="meta">
+        <span class="pill">用途：內部對齊 / 顧問討論</span>
+        <span class="pill">範圍：公司級藍圖 + 客戶部藍圖</span>
+        <span class="pill">原則：AI 產出草稿，人負責判斷</span>
+      </div>
+    </header>
+
+    <section>
+      <h2>1. 公司核心價值鏈總覽</h2>
+      <div class="legend">
+        <span><i class="dot" style="background: var(--teal)"></i>行銷部</span>
+        <span><i class="dot" style="background: var(--blue)"></i>客戶部</span>
+        <span><i class="dot" style="background: var(--violet)"></i>專案部</span>
+        <span><i class="dot" style="background: var(--green)"></i>行銷服務部</span>
+        <span><i class="dot" style="background: var(--amber)"></i>成效 / 續約</span>
+      </div>
+      <div class="company-flow">
+        <article class="flow-card">
+          <span class="tag marketing">行銷部</span>
+          <h3>獲客與內容經營</h3>
+          <ul>
+            <li>產文、社群、廣告</li>
+            <li>SEO 表現追蹤</li>
+            <li>市場議題與需求訊號</li>
+          </ul>
+        </article>
+        <article class="flow-card">
+          <span class="tag sales">客戶部</span>
+          <h3>客情釐清與提案</h3>
+          <ul>
+            <li>客戶目的</li>
+            <li>搜尋與競業分析</li>
+            <li>提案簡報</li>
+          </ul>
+        </article>
+        <article class="flow-card">
+          <span class="tag sales">客戶部</span>
+          <h3>成案行政與交接</h3>
+          <ul>
+            <li>回簽、用印、請款</li>
+            <li>內部通知訊息草稿</li>
+            <li>PM 交接摘要</li>
+          </ul>
+        </article>
+        <article class="flow-card">
+          <span class="tag pm">專案部</span>
+          <h3>承接與控管</h3>
+          <ul>
+            <li>KPI 與範圍確認</li>
+            <li>協調執行進度</li>
+            <li>客戶會議與議題追蹤</li>
+          </ul>
+        </article>
+        <article class="flow-card">
+          <span class="tag exe">行銷服務部</span>
+          <h3>執行與內容交付</h3>
+          <ul>
+            <li>健診、拓字、優化</li>
+            <li>大綱、初稿、完稿</li>
+            <li>月報與歸檔</li>
+          </ul>
+        </article>
+        <article class="flow-card">
+          <span class="tag report">專案部</span>
+          <h3>成效回報</h3>
+          <ul>
+            <li>月報 / 結案報告</li>
+            <li>成效分析</li>
+            <li>後續策略建議</li>
+          </ul>
+        </article>
+        <article class="flow-card">
+          <span class="tag sales">客戶部</span>
+          <h3>續約與加購</h3>
+          <ul>
+            <li>續約關鍵字</li>
+            <li>成果包裝</li>
+            <li>新提案</li>
+          </ul>
+        </article>
+      </div>
+      <div class="callout">核心主軸：行銷部提供市場與內容訊號，客戶部轉成可成交提案，成交後乾淨交接給專案部與行銷服務部，最後由成效資料回流成續約或加購提案。</div>
+    </section>
+
+    <section>
+      <h2>2. 公司級部門藍圖</h2>
+      <div class="grid-3">
+        <article class="info-card">
+          <strong>行銷部</strong>
+          <p>負責品牌曝光、內容經營、SEO 表現追蹤與廣告測試，提供市場主題、內容素材與潛在需求訊號。</p>
+        </article>
+        <article class="info-card">
+          <strong>客戶部</strong>
+          <p>把客情、搜尋資料、競品資料與網站現況轉成提案；成交後負責簽約行政、通知、PM 交接與資料完整度確認。</p>
+        </article>
+        <article class="info-card">
+          <strong>專案部</strong>
+          <p>承接需求、確認 KPI 與範圍、協調執行、追蹤進度，並將成效整理成月報、結案報告與後續策略。</p>
+        </article>
+        <article class="info-card">
+          <strong>行銷服務部（執行）</strong>
+          <p>負責開案建檔、健診、拓字、TDH 優化、月報、AI 搜尋儀表板、外部連結、續約關鍵字評估與結案歸檔。</p>
+        </article>
+        <article class="info-card">
+          <strong>行銷服務部（內容）</strong>
+          <p>負責業主研究、關鍵字拓字、內容大綱、初稿、潤飾、SEO 完稿、稿件驗收與歸檔。</p>
+        </article>
+        <article class="info-card">
+          <strong>AI / 自動化定位</strong>
+          <p>整理資料、產出草稿、預填表單、提醒漏項、建立檢查點；商業判斷與對外承諾仍由人確認。</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>3. 跨部門交接點</h2>
+      <div class="handoff-grid">
+        <article class="handoff">
+          <div class="route">行銷部 -> 客戶部</div>
+          <h3>市場訊號轉提案素材</h3>
+          <p>交接市場主題、SEO / GEO 議題、內容素材、廣告或流量表現。AI 可先整理提案切角，客戶部判斷是否符合特定客戶需求。</p>
+        </article>
+        <article class="handoff">
+          <div class="route">客戶部前段 -> 客戶部後段</div>
+          <h3>提案成交轉開案資訊</h3>
+          <p>交接報價單、服務範圍、客戶目的與特殊承諾。AI 可萃取 PM 交接欄位並產生成案 checklist。</p>
+        </article>
+        <article class="handoff">
+          <div class="route">客戶部 -> 專案部</div>
+          <h3>成案資訊轉 PM 交接</h3>
+          <p>交接客戶需求表、PM 摘要、報價單、付款和行政狀態。人需確認是否可正式開案。</p>
+        </article>
+        <article class="handoff">
+          <div class="route">專案部 -> 行銷服務部</div>
+          <h3>需求拆解轉執行任務</h3>
+          <p>交接 KPI、服務範圍、關鍵字方向、文章篇數、時程與審稿節點。PM 負責優先順序與衝突處理。</p>
+        </article>
+        <article class="handoff">
+          <div class="route">行銷服務部 -> 專案部</div>
+          <h3>執行成果轉回報資料</h3>
+          <p>交接月報資料、排名、流量變動、優化紀錄與稿件進度。AI 可生成摘要，PM 決定對客戶說法。</p>
+        </article>
+        <article class="handoff">
+          <div class="route">專案部 / 行銷服務部 -> 客戶部</div>
+          <h3>成效洞察轉續約提案</h3>
+          <p>交接成效亮點、未完成機會、續約關鍵字與主題方向。客戶部判斷續約策略與商業時機。</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>4. 客戶部智慧自動化藍圖</h2>
+      <div class="customer-lanes">
+        <div class="lane">
+          <h3>前段：提案簡報製作</h3>
+          <div class="steps">
+            <div class="step"><div><strong>客情蒐集</strong><p>Google Forms / Sheets 產出結構化客情文字。</p></div></div>
+            <div class="step"><div><strong>客戶目的釐清</strong><p>AI 整理目的與提案切角，客戶經理確認方向。</p></div></div>
+            <div class="step"><div><strong>搜尋現況與競業分析</strong><p>Ahrefs 報表轉成搜尋摘要、競業差距與圖表方向。</p></div></div>
+            <div class="step"><div><strong>網站簡易健診</strong><p>讀取 md 健診檔，產出初診結果、優化建議與工程需求。</p></div></div>
+            <div class="step"><div><strong>關鍵字與內容策略</strong><p>整理機會字、搜尋意圖、支柱頁與群集文章方向。</p></div></div>
+            <div class="step"><div><strong>提案大綱與 Google Slide 初稿</strong><p>AI 產出可審核大綱並套既有模板，人修正敘事與承諾。</p></div></div>
+          </div>
+        </div>
+        <div class="lane">
+          <h3>後段：成案簽約行政與 PM 交接</h3>
+          <div class="steps">
+            <div class="step"><div><strong>客戶確認合作</strong><p>建立成案資料主表與行政 checklist。</p></div></div>
+            <div class="step"><div><strong>回簽、用印、請款</strong><p>追蹤報價單狀態，生成合約帳款內部通知訊息草稿，人工確認後再送出。</p></div></div>
+            <div class="step"><div><strong>Slack / LINE / 內部通知</strong><p>生成派案內部通知訊息草稿，人工確認派案對象與內容後再送出。</p></div></div>
+            <div class="step"><div><strong>客戶需求表預填</strong><p>從客情、提案與報價單整理 PM 交接摘要。</p></div></div>
+            <div class="step"><div><strong>內部表單同步更新</strong><p>一次輸入，多處表單更新或提醒。</p></div></div>
+            <div class="step"><div><strong>開案前完整度檢查</strong><p>確認回簽、用印、需求表、PM、群組與通知狀態。</p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>5. 人為介入閘點</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>閘點</th>
+              <th>發生位置</th>
+              <th>人為判斷重點</th>
+              <th>AI 可先準備</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>提案切入點確認</td><td>客戶目的釐清後</td><td>客戶真正動機、預算、成交可能性與關係脈絡</td><td>目的摘要、提案切角、待補問題</td></tr>
+            <tr><td>分析洞察取捨</td><td>Ahrefs / 競品 / 健診後</td><td>哪些數據適合對外呈現，避免過度承諾</td><td>搜尋現況、競品差距、健診問題、簡報可用句</td></tr>
+            <tr><td>關鍵字策略確認</td><td>關鍵字策略階段</td><td>商業價值、服務可交付性、產品和成交路徑關聯</td><td>機會字、搜尋意圖、支柱頁 / 群集文建議</td></tr>
+            <tr><td>簡報初稿修正</td><td>Google Slide 生成後</td><td>敘事、品牌、價格、承諾、客戶關係</td><td>套模板初稿、頁面標題、資料來源</td></tr>
+            <tr><td>成案條件確認</td><td>客戶確認合作後</td><td>金額、付款、跨部門分帳、特殊需求</td><td>成案資料主表、待確認欄位</td></tr>
+            <tr><td>正式開案確認</td><td>開案前完整度檢查後</td><td>資料是否足以交接，是否仍有執行風險</td><td>完整度檢查、缺漏提醒、狀態摘要</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>6. 沙盤推演：A 品牌電商</h2>
+      <p>假設客戶希望提升非品牌字自然搜尋流量，並評估 SEO / GEO 內容經營合作。</p>
+      <div class="timeline">
+        <div class="timeline-row">
+          <div class="stage">市場訊號</div>
+          <div>行銷部整理到電商品牌對 AI 搜尋曝光、SEO 內容與產品頁流量很關注。</div>
+          <div>交付：市場主題與內容素材</div>
+        </div>
+        <div class="timeline-row">
+          <div class="stage">客情與提案</div>
+          <div>客戶經理填表，AI 依客情、Ahrefs、競品、健診與關鍵字資料產出提案大綱。</div>
+          <div>交付：提案簡報初稿</div>
+        </div>
+        <div class="timeline-row">
+          <div class="stage">成交行政</div>
+          <div>客戶確認合作後，系統產生成案 checklist、Slack 內部通知訊息草稿與付款資訊摘要；訊息需由客戶經理確認後送出。</div>
+          <div>交付：行政待辦與內部通知訊息草稿</div>
+        </div>
+        <div class="timeline-row">
+          <div class="stage">PM 交接</div>
+          <div>AI 從客情、提案與報價單產出客戶需求表初稿與 PM 交接摘要。</div>
+          <div>交付：PM 交接摘要</div>
+        </div>
+        <div class="timeline-row">
+          <div class="stage">執行與回報</div>
+          <div>專案部協調行銷服務部執行健診、拓字、優化與內容產製，並整合月報。</div>
+          <div>交付：月報與成效分析</div>
+        </div>
+        <div class="timeline-row">
+          <div class="stage">續約 / 加購</div>
+          <div>專案部與行銷服務部整理成效亮點與未完成機會，客戶部提出續約或加購提案。</div>
+          <div>交付：續約建議與提案素材</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>7. 第一階段 MVP 與導入順序</h2>
+      <div class="grid-2">
+        <article class="info-card">
+          <strong>MVP 1：提案分析與簡報大綱助手</strong>
+          <p>輸入客情資料、Ahrefs 報表、健診 md、競品資料與關鍵字研究資料，產出客戶目的摘要、搜尋現況、競業差距、健診摘要、關鍵字策略、提案大綱與 Google Slide 初稿。</p>
+        </article>
+        <article class="info-card">
+          <strong>MVP 2：成案行政流程助手</strong>
+          <p>輸入成案資料後，自動產出行政 checklist、Slack 內部通知訊息草稿、客戶需求表初稿、PM 交接摘要、內部表單更新提醒與未完成事項提醒。通知訊息只作為草稿，不自動發送。</p>
+        </article>
+      </div>
+      <ol class="compact-list">
+        <li>先統一客戶資料主體，讓客情、提案、報價與成案資料可以延續。</li>
+        <li>先做草稿與提醒，不急著自動送出。</li>
+        <li>提案端先標準化 Prompt 與輸出格式。</li>
+        <li>成案端先做 checklist 與 PM 交接摘要。</li>
+        <li>流程欄位穩定後，再評估 Google Sheets / Apps Script / n8n / 簡單網頁工具。</li>
+      </ol>
+    </section>
+  </main>
+</body>
+</html>
